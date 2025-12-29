@@ -1,0 +1,194 @@
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e5e7eb;
+}
+
+header {
+  text-align: center;
+  padding: 22px;
+  border-bottom: 1px solid #1e293b;
+}
+
+header h1 {
+  color: #22d3ee;
+  letter-spacing: 3px;
+}
+
+header p {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+main {
+  padding: 16px;
+}
+
+/* HABIT GRID */
+
+.habit-canvas {
+  background: #020617;
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid #1e293b;
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+th, td {
+  border: 1px solid #1e293b;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  color: #38bdf8;
+}
+
+td.habit-cell input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e5e7eb;
+}
+
+/* CUSTOM CHECKBOX */
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid #ef4444;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+input[type="checkbox"]:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.dash-card {
+  background: #020617;
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid #1e293b;
+  text-align: center;
+}
+
+.dash-card span {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.dash-card h3 {
+  font-size: 28px;
+  margin-top: 6px;
+}
+
+.dash-card.highlight {
+  background: linear-gradient(135deg, #22d3ee, #38bdf8);
+  color: #020617;
+}
+
+/* SLEEP */
+
+.sleep {
+  background: #020617;
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid #1e293b;
+  margin-bottom: 22px;
+}
+
+.sleep-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sleep-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+}
+
+.sleep-box span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.sleep-box h4 {
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.sleep-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.sleep-input input {
+  flex: 1;
+  padding: 6px;
+  background: #020617;
+  border: 1px solid #1e293b;
+  color: #e5e7eb;
+}
+
+/* POWER SCORE */
+
+.power {
+  background: linear-gradient(135deg, #22d3ee, #38bdf8);
+  border-radius: 22px;
+  padding: 28px;
+  text-align: center;
+  color: #020617;
+}
+
+#powerScore {
+  font-size: 64px;
+  font-weight: 900;
+}
+.power-desc {
+  margin-top: 8px;
+  font-size: 16px;
+}
+.power-advices {
+  margin-top: 14px;
+  text-align: left;
+}
+.power-advices ul {
+  padding-left: 20px;
+}
+.power-advices li {
+  margin-bottom: 6px;
+}
+.power-advices li::marker {
+  color: #020617;
+}

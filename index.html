@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Superhuman Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>SUPERHUMAN TRACKER</h1>
+  <p id="dateHeader"></p>
+</header>
+
+<main>
+
+  <!-- MONTHLY HABIT TRACKER -->
+  <section class="habit-canvas">
+    <h2>Monthly Habit Tracker</h2>
+    <div class="table-wrap full">
+      <table id="monthTable"></table>
+    </div>
+  </section>
+
+  <!-- MONTHLY DASHBOARD -->
+  <section class="dashboard">
+    <div class="dash-card">
+      <span>Total Habits</span>
+      <h3 id="totalHabits">0</h3>
+    </div>
+    <!-- <div class="dash-card">
+      <span>Total Possible</span>
+      <h3 id="totalPossible">0</h3>
+    </div> -->
+    <div class="dash-card">
+        <span>Habits Not Completed</span>
+        <h3 id="notCompleted">0</h3>
+    </div>
+
+    <div class="dash-card">
+      <span>Completed</span>
+      <h3 id="completed">0</h3>
+    </div>
+    <div class="dash-card highlight">
+      <span>Completion</span>
+      <h3 id="completionRate">0%</h3>
+    </div>
+    <div class="dash-card">
+      <span>Days Left</span>
+      <h3 id="daysLeft">0</h3>
+    </div>
+  </section>
+
+  <!-- SLEEP TRACKER (UNCHANGED) -->
+  <section class="compact">
+    <h3>Sleep Tracker</h3>
+    <div class="sleep-input">
+      <input
+        id="sleepHours"
+        type="text"
+        inputmode="decimal"
+        placeholder="e.g. 7.5"
+        oninput="this.value=this.value.replace(/[^0-9.]/g,'')"
+      >
+      <button onclick="logSleep()">Save</button>
+    </div>
+    <canvas id="sleepChart"></canvas>
+  </section>
+
+  <!-- MONTHLY POWER SCORE (UNCHANGED) -->
+  <section class="power">
+    <h2>Monthly Power Score</h2>
+    <div id="powerScore">0</div>
+    <p class="power-sub">Consistency compounds.</p>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
