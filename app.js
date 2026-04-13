@@ -83,6 +83,133 @@ function resetMonth() {
 
 
 /* ===============================
+   TODAY'S FOCUS & STREAK
+================================ */
+
+function calculateStreak() {
+  const habits = Object.values(gridData).filter(h => h.name.trim() !== "");
+  const streakEl = document.getElementById("streakCounter");
+  if (!streakEl) return;
+  if (habits.length === 0) {
+    streakEl.innerText = "🔥 0 Day Streak";
+    return;
+  }
+
+  let streak = 0;
+  for (let d = TODAY_DATE; d >= 1; d--) {
+    let allDoneForDay = true;
+    for (let h of habits) {
+      if (!h.days[d]) {
+        allDoneForDay = false;
+        break;
+      }
+    }
+    
+    if (allDoneForDay) {
+      streak++;
+    } else {
+      if (d === TODAY_DATE) {
+        continue;
+      } else {
+        break;
+      }
+    }
+  }
+
+  streakEl.innerText = `🔥 ${streak} Day Streak`;
+}
+
+function renderTodayFocus() {
+  const container = document.getElementById("todayHabitsList");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  const habits = Object.values(gridData).filter(h => h.name.trim() !== "");
+  
+  if (habits.length === 0) {
+    container.innerHTML = "<p style='color: #94a3b8; font-size: 14px;'>Add a habit below to get started.</p>";
+    checkDailyCompletion();
+    return;
+  }
+
+  const keys = Object.keys(gridData).filter(key => gridData[key].name.trim() !== "");
+
+  keys.forEach(key => {
+    const h = gridData[key];
+    const isChecked = h.days[TODAY_DATE] ? "checked" : "";
+    const completedClass = isChecked ? "completed" : "";
+
+    const div = document.createElement("div");
+    div.className = `today-habit-item ${completedClass}`;
+    div.innerHTML = `
+      <span class="today-habit-name">${h.name}</span>
+      <input type="checkbox" class="today-habit-checkbox" ${isChecked} 
+             onclick="toggleTodayCheck('${key}')">
+    `;
+    container.appendChild(div);
+  });
+
+  checkDailyCompletion();
+}
+
+function toggleTodayCheck(key) {
+  gridData[key].days[TODAY_DATE] = !gridData[key].days[TODAY_DATE];
+  save();
+  
+  renderTable(); 
+  renderTodayFocus();
+  updateDashboard();
+  updatePowerScore();
+  calculateStreak();
+}
+
+function checkDailyCompletion() {
+  const habits = Object.values(gridData).filter(h => h.name.trim() !== "");
+  const motivation = document.getElementById("dailyMotivation");
+  if (!motivation) return;
+  
+  if (habits.length === 0) {
+    motivation.innerText = "No habits. Let's add some!";
+    return;
+  }
+
+  let completed = 0;
+  habits.forEach(h => {
+    if (h.days[TODAY_DATE]) completed++;
+  });
+
+  if (completed === 0) {
+    motivation.innerText = "Ready to crush today?";
+  } else if (completed < habits.length) {
+    motivation.innerText = "Keep going! You're doing great.";
+  } else {
+    motivation.innerText = "Incredible! You finished all your habits today!";
+    
+    if (!window.hasFiredConfettiForToday) {
+      fireConfetti();
+      window.hasFiredConfettiForToday = true;
+    }
+  }
+}
+
+function fireConfetti() {
+  if (typeof confetti !== "undefined") {
+    var count = 200;
+    var defaults = { origin: { y: 0.7 } };
+    function fire(particleRatio, opts) {
+      confetti(Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio)
+      }));
+    }
+    fire(0.25, { spread: 26, startVelocity: 55 });
+    fire(0.2, { spread: 60 });
+    fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+    fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+    fire(0.1, { spread: 120, startVelocity: 45 });
+  }
+}
+
+/* ===============================
    HABIT TABLE
 ================================ */
 const table = document.getElementById("monthTable");
@@ -118,7 +245,7 @@ function buildRow(key) {
 
   for (let d = 1; d <= DAYS; d++) {
     const checked = h.days[d] ? "checked" : "";
-    const disabled = !h.name || d < TODAY_DATE ? "disabled" : "";
+    const disabled = !h.name ? "disabled" : "";
     row += `<td>
       <input type="checkbox" ${checked} ${disabled}
         onclick="toggleCheck('${key}',${d})">
@@ -133,14 +260,19 @@ function updateHabitName(key,value) {
   gridData[key].name = value.trim();
   save();
   renderTable();
+  renderTodayFocus();
+  calculateStreak();
 }
 
 function toggleCheck(key,day) {
-  if (day < TODAY_DATE) return;
   gridData[key].days[day] = !gridData[key].days[day];
   save();
+  if (day === TODAY_DATE) {
+    renderTodayFocus();
+  }
   updateDashboard();
   updatePowerScore();
+  calculateStreak();
 }
 
 /* ===============================
@@ -239,6 +371,8 @@ function drawSleepChart() {
    INIT (READ ONLY)
 ================================ */
 renderTable();
+renderTodayFocus();
+calculateStreak();
 updateDashboard();
 updatePowerScore();
 drawSleepChart();
