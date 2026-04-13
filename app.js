@@ -139,14 +139,14 @@ function renderTodayFocus() {
     const isChecked = h.days[TODAY_DATE] ? "checked" : "";
     const completedClass = isChecked ? "completed" : "";
 
-    const div = document.createElement("div");
-    div.className = `today-habit-item ${completedClass}`;
-    div.innerHTML = `
+    const label = document.createElement("label");
+    label.className = `today-habit-item ${completedClass}`;
+    label.innerHTML = `
       <span class="today-habit-name">${h.name}</span>
       <input type="checkbox" class="today-habit-checkbox" ${isChecked} 
-             onclick="toggleTodayCheck('${key}')">
+             onchange="toggleTodayCheck('${key}')">
     `;
-    container.appendChild(div);
+    container.appendChild(label);
   });
 
   checkDailyCompletion();
