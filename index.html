@@ -4,17 +4,28 @@
   <meta charset="UTF-8" />
   <title>Superhuman Tracker</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="icons8-discipline-16.png" type="image/png">
+  <link rel="icon" href="https://img.icons8.com/?size=80&id=OLozDjoR1bvk&format=png" type="image/png">
+
 </head>
 <body>
 
 <header>
   <h1>SUPERHUMAN TRACKER</h1>
   <p id="dateHeader"></p>
+  <div id="streakCounter" class="streak-badge">🔥 0 Day Streak</div>
   <button class="reset-btn" onclick="resetMonth()">Reset Month</button>
 </header>
 
 <main>
+
+  <!-- TODAY'S FOCUS -->
+  <section class="today-focus" id="todayFocusSection">
+    <div class="today-header">
+      <h2>Today's Focus</h2>
+      <p id="dailyMotivation">Ready to crush it?</p>
+    </div>
+    <div id="todayHabitsList" class="today-habits-list"></div>
+  </section>
 
   <!-- HABIT TRACKER -->
   <section class="habit-canvas">
@@ -86,7 +97,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
-
